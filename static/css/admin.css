@@ -1,0 +1,19 @@
+#header{
+
+background: #10284e;
+color:#fff;
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    color: #f1f0ed;
+}
+
+div.breadcrumbs {
+    background: rgba(32, 134, 107, 0.8);
+    padding: 10px 40px;
+    border: none;
+    font-size: 14px;
+    color: #f1f0ed;
+    text-align: left;
+}
+

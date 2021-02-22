@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load humanize %}
+
+{% block content %}
+<section id="register" class="bg-light py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h4>Add Listing</h4>
+            </div>
+            <div class="card-body">
+               <form action="" method="post"  enctype="multipart/form-data">
+                {% csrf_token %}
+                  <table>
+                  {{ form.as_table }}
+                  </table>
+                  <input type="submit" value="Submit"  class="btn btn-secondary btn-block" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+      setTimeout(function(){
+          $(".alert").fadeOut('slow')
+      },3000);
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<style type="text/css">
+  .table .thead-dark th {
+    background-color: #102d49 !important;
+}
+</style>
+
+  <section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">{{realtor.name}}</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html">Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'realtors' %}">Realtors</a>
+          </li>
+          <li class="breadcrumb-item active">{{realtor.title}}</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Listing -->
+  <section id="listing" class="py-4">
+    <div class="container">
+      <a href="{% url 'realtors' %}" class="btn btn-light mb-4">Back To Realtors</a>
+      
+      {% if user.is_staff %}
+        <a href="{% url 'realtor-update' realtor.id %}" class="btn btn-light mb-4">Edit</a>
+        <a href="{% url 'realtor-delete' realtor.id %}" class="btn btn-light mb-4" data-toggle="modal" data-target="#exampleModalCenter">Delete</a>
+
+      {% endif %}
+
+      <div class="row">
+        <div class="col-md-4">
+          <!-- Home Main Image -->
+          <img src="{{realtor.photo.url}}" alt="" class="img-main img-fluid mb-3">
+          <!-- Thumbnails -->
+        </div>
+        <div class="col-md-8">
+          <div class="row" >
+            {{realtor.description}}
+          </div>
+          <!-- Fields -->
+          <div class="row mb-5 fields">
+            <div class="col-md-12">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item text-secondary">
+                  <i class="fas fa-envelope"></i> Email:
+                  <span class="float-right">${{realtor.email}}</span>
+                </li>
+                <li class="list-group-item text-secondary">
+                  <i class="fas fa-phone"></i> Phone:
+                  <span class="float-right">{{realtor.phone}}</span>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-12">
+              <h4>Listing Available : </h4>
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Listing</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Sqft</th>
+                    <th scope="col">Address</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for listing in realtor.listing_set.all %}
+                  <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{listing.title}}</td>
+                    <td>{{listing.price}}</td>
+                    <td>{{listing.sqft}}</td>
+                    <td>{{listing.city}}, {{listing.state}}, {{listing.zipcode}},</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Delete Realtor</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          Are you sure you want to delete Realtor
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form action="{% url 'realtor-delete' realtor.id %}">
+        <button type="submit" class="btn btn-primary">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

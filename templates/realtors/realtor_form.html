@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load humanize %}
+
+{% block content %}
+<section id="register" class="bg-light py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              {% if edit %}
+              <h4>Edit Realtor</h4>
+              {% else %}
+              <h4>Add Realtor</h4>
+              {% endif %}
+            </div>
+            <div class="card-body">
+               <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label >{{ form.name.label_tag }}</label>
+                  {{ form.name }}
+                </div>
+                <div class="form-group">
+                  <label >{{ form.photo.label_tag }}</label>
+                  {{ form.photo }}
+                </div>
+                <div class="form-group">
+                  <label >{{ form.description.label_tag }}</label>
+                  {{ form.description }}
+                </div>
+                <div class="form-group">
+                  <label >{{ form.email.label_tag }}</label>
+                  {{ form.email }}
+                </div>
+                <div class="form-group">
+                  <label >{{ form.phone.label_tag }}</label>
+                  {{ form.phone }}
+                </div>
+                  <input type="submit" value="Submit"  class="btn btn-secondary btn-block" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<td>{{ form.username.label_tag }}</td>
+<td>{{ form.username }}</td>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+      $('body input[type=text]').addClass('form-control');
+      $('body input[type=email]').addClass('form-control');
+  });
+</script>
+{% endblock %}
